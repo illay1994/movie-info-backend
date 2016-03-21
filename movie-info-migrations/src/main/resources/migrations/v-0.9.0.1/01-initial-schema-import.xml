@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+	<changeSet id="add film table" author="illay">
+		<createTable tableName="film">
+			<column name="id" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false"/>
+			</column>
+			<column name="title" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="year" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="released" type="TIMESTAMP"/>
+			<column name="runtime" type="TIMESTAMP"/>
+			<column name="language" type="VARCHAR(50)"/>
+			<column name="country" type="VARCHAR(50)"/>
+			<column name="uid" type="BIGINT" />
+			<column name="utid" type="VARCHAR(50)" />
+			<column name="uapp" type="VARCHAR(50)" />
+			<column name="crtuser" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="crtusergroup" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="update_date" type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+			<column name="create_date" type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="add q_op_user table" author="illay">
+
+		<createTable tableName="q_op_user" remarks="Логіни користувачів сервера">
+			<!-- Common fields -> Model -->
+			<column name="id" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" />
+			</column>
+			<column name="email" type="varchar(255)" />
+			<column name="status" type="q_en_row_status">
+				<constraints nullable="false" />
+			</column>
+			<column name="actual" remarks="Status of row" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="note" type="varchar(255)" />
+			<column name="crtuser" type="varchar(50)" remarks="User, that made changes">
+				<constraints nullable="false" />
+			</column>
+			<column name="crtusergroup" type="varchar(50)"
+				remarks="User group(user, that made changes)">
+				<constraints nullable="false" />
+			</column>
+			<column name="update_date" type="timestamp" remarks="Update date">
+				<constraints nullable="false" />
+			</column>
+			<column name="create_date" type="timestamp" remarks="Date of row creation">
+				<constraints nullable="false" />
+			</column>
+
+			<!-- Table related fields -> User -->
+			<column name="login" type="varchar(50)" remarks="User login">
+				<constraints nullable="false" />
+			</column>
+			<column name="password" type="varchar(50)" remarks="User password">
+				<constraints nullable="false" />
+			</column>
+			<column name="title" type="varchar(200)" remarks="Initials(Fist name, Surname)">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="begdate" type="timestamp" remarks="Start access date" />
+			<column name="enddate" type="timestamp" remarks="End of access date" />
+		</createTable>
+
+		<addPrimaryKey columnNames="id" constraintName="pk_q_op_user"
+			tableName="q_op_user" />
+
+	</changeSet>
+
+	<changeSet id="add q_op_role_table" author="illay">
+
+		<createTable tableName="q_op_role" remarks="Available roles">
+			<!-- Common fields -> Model -->
+			<column name="id" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" />
+			</column>
+			<column name="status" type="q_en_row_status">
+				<constraints nullable="false" />
+			</column>
+			<column name="actual" remarks="Status of row" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="note" type="varchar(255)" />
+			<column name="crtuser" type="varchar(50)" remarks="User, that made changes">
+				<constraints nullable="false" />
+			</column>
+			<column name="crtusergroup" type="varchar(50)"
+				remarks="User group(user, that made changes)">
+				<constraints nullable="false" />
+			</column>
+			<column name="update_date" type="timestamp" remarks="Update date">
+				<constraints nullable="false" />
+			</column>
+			<column name="create_date" type="timestamp" remarks="Date of row creation">
+				<constraints nullable="false" />
+			</column>
+
+			<!-- Table related fields -> User -->
+			<column name="title" type="varchar(50)" remarks="role name">
+				<constraints nullable="false" />
+			</column>
+			<column name="description" type="varchar(200)" remarks="Role description">
+				<constraints nullable="false" />
+			</column>
+
+		</createTable>
+		<addPrimaryKey columnNames="id" constraintName="pk_q_op_role"
+			tableName="q_op_role" />
+
+	</changeSet>
+
+	<changeSet id="add q_op_group_table" author="illay">
+
+		<createTable tableName="q_op_group" remarks="Available groups">
+			<!-- Common fields -> Model -->
+			<column name="id" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" />
+			</column>
+			<column name="status" type="q_en_row_status">
+				<constraints nullable="false" />
+			</column>
+			<column name="actual" remarks="Status of row" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="note" type="varchar(255)" />
+			<column name="crtuser" type="varchar(50)" remarks="User, that made changes">
+				<constraints nullable="false" />
+			</column>
+			<column name="crtusergroup" type="varchar(50)"
+				remarks="User group(user, that made changes)">
+				<constraints nullable="false" />
+			</column>
+			<column name="update_date" type="timestamp" remarks="Update date">
+				<constraints nullable="false" />
+			</column>
+			<column name="create_date" type="timestamp" remarks="Date of row creation">
+				<constraints nullable="false" />
+			</column>
+
+			<!-- Table related fields -> User -->
+			<column name="title" type="varchar(50)" remarks="Group name">
+				<constraints nullable="false" />
+			</column>
+			<column name="description" type="varchar(200)" remarks="Group description">
+				<constraints nullable="false" />
+			</column>
+
+		</createTable>
+		<addPrimaryKey columnNames="id" constraintName="pk_q_op_group"
+			tableName="q_op_group" />
+
+	</changeSet>
+
+	<changeSet id="add q_op_usergroup_table" author="illay">
+
+		<createTable tableName="q_op_usergroup" remarks="User groups">
+			<!-- Common fields -> Model -->
+			<column name="id" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="status" type="q_en_row_status">
+				<constraints nullable="false" />
+			</column>
+			<column name="actual" remarks="Status of row" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="note" type="varchar(255)" />
+			<column name="crtuser" type="varchar(50)" remarks="User, that made changes">
+				<constraints nullable="false" />
+			</column>
+			<column name="crtusergroup" type="varchar(50)"
+				remarks="User group(user, that made changes)">
+				<constraints nullable="false" />
+			</column>
+			<column name="update_date" type="timestamp" remarks="Update date">
+				<constraints nullable="false" />
+			</column>
+			<column name="create_date" type="timestamp" remarks="Date of row creation">
+				<constraints nullable="false" />
+			</column>
+
+			<!-- Table related fields -> User -->
+			<column name="user_id" type="BIGINT">
+				<constraints nullable="false" foreignKeyName="fk_q_op_usergroup_user_id"
+					references="q_op_user(id)" />
+			</column>
+			<column name="group_id" type="BIGINT">
+				<constraints nullable="false" foreignKeyName="fk_q_op_usergroup_group_id"
+					references="q_op_group(id)" />
+			</column>
+			<column name="major" type="boolean">
+				<constraints nullable="false" />
+			</column>
+			<column name="title" type="varchar(50)" remarks="Group name">
+				<constraints nullable="false" />
+			</column>
+			<column name="description" type="varchar(200)" remarks="Group description">
+				<constraints nullable="false" />
+			</column>
+
+		</createTable>
+
+	</changeSet>
+
+	<changeSet id="add q_op_userrole_table" author="illay">
+
+		<createTable tableName="q_op_userrole" remarks="User roles">
+			<!-- Common fields -> Model -->
+			<column name="id" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="status" type="q_en_row_status">
+				<constraints nullable="false" />
+			</column>
+			<column name="actual" remarks="Status of row" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="note" type="varchar(255)" />
+			<column name="crtuser" type="varchar(50)" remarks="User, that made changes">
+				<constraints nullable="false" />
+			</column>
+			<column name="crtusergroup" type="varchar(50)"
+				remarks="User group(user, that made changes)">
+				<constraints nullable="false" />
+			</column>
+			<column name="update_date" type="timestamp" remarks="Update date">
+				<constraints nullable="false" />
+			</column>
+			<column name="create_date" type="timestamp" remarks="Date of row creation">
+				<constraints nullable="false" />
+			</column>
+
+			<!-- Table related fields -> UserRole -->
+			<column name="user_id" type="BIGINT">
+				<constraints nullable="false" foreignKeyName="fk_q_op_userrole_user_id"
+					references="q_op_user(id)" />
+			</column>
+			<column name="role_id" type="BIGINT">
+				<constraints nullable="false" foreignKeyName="fk_q_op_userrole_role_id"
+					references="q_op_role(id)" />
+			</column>
+			<column name="major" type="boolean">
+				<constraints nullable="false" />
+			</column>
+			<column name="title" type="varchar(50)" remarks="Group name" />
+			<column name="description" type="varchar(200)" remarks="Group description" />
+
+		</createTable>
+	</changeSet>
+
+</databaseChangeLog>

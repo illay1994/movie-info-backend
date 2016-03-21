@@ -1,0 +1,55 @@
+#!/bin/bash
+
+BACKEND_PATH=`pwd`
+MVN_PATH=$(cd ../movie-info-tools/maven; pwd)
+
+COMMAND=$1
+ARGS=${@:2}
+
+function main() {
+      case "$COMMAND" in
+      build) build $ARGS
+          ;;
+      run) run $ARGS
+          ;;
+      test) integrationTest $ARGS
+          ;;
+      migrate) migrate $ARGS
+          ;;
+      dropDb) dropDb $ARGS
+          ;;
+      *) echo "invalid command: build.sh build|run|test|migrate"
+          ;;
+      esac
+}
+
+# build project
+function build() {
+    ${MVN_PATH}/bin/mvn clean install ${@:1}
+}
+
+# set up database
+function migrate() {
+    cd ${BACKEND_PATH}/movie-info-migrations
+    ${MVN_PATH}/bin/mvn liquibase:update ${@:1}
+}
+
+function dropDb() {
+    cd ${BACKEND_PATH}/movie-info-migrations
+    ${MVN_PATH}/bin/mvn liquibase:dropAll ${@:1}
+}
+
+# start tomcat using maven plugin
+function run() {
+    ${MVN_PATH}/bin/mvn clean install ${@:1}
+    cd ${BACKEND_PATH}/movie-info-rest-api
+    ${MVN_PATH}/bin/mvn tomcat7:run ${@:1}
+}
+
+# run integration tests
+function integrationTest() {
+    cd ${BACKEND_PATH}/movie-info-integration
+    ${MVN_PATH}/bin/mvn clean test ${@:1}
+}
+
+main

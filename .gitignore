@@ -1,0 +1,17 @@
+*.class
+*.settings
+*.project
+*.classpath
+*.iml
+target
+# Package Files #
+*.jar
+*.war
+*.ear
+.metadata
+.idea
+/target
+*/bin/*
+*.cache
+
+.DS_Store
